@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>document</title>
+    <meta charset="UTF-8">
+    <style>
+        input,canvas{margin:0;padding:0;}
+        input,canvas{
+            height:60px;
+            border:1px solid #aca9a9;
+            border-radius: 5px;
+        }
+        canvas{
+            width: 160px;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="inp" placeholder="请输入验证码(不区分大小写)" autofocus><canvas id="canvas">请升级浏览器</canvas>
+<input type="button" value="提交" id="btn" style="width:100px">
+<script>
+    var ctx = canvas.getContext("2d");
+    canvas.onclick = function(){
+        rnaF();
+    };
+    function rnaF(){
+        ctx.clearRect(0,0,320,160);
+        var num,str="";
+        var strArry = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        for (var i = 0; i < 4; i++) {
+            // 随机获取4个下表
+            num=rn(0,strArry.length-1);
+            // 把数组内的4个下标的字符储存起来
+            str+=strArry[num];
+            console.log(strArry[num]);
+            ctx.font = rn(50,80)+"px blod";
+            ctx.fillStyle = "rgb("+rn(0,255)+","+rn(0,255)+","+rn(0,255)+")";
+            ctx.save();
+            ctx.translate(70*i+20,rn(80,100));
+            ctx.rotate(rn(-30,30)*Math.PI/180);
+            ctx.fillText(strArry[num],0,0);
+            ctx.fill();
+            ctx.restore();
+        }
+        xianFn();
+        xianFn();
+        xianFn();
+        xianFn();
+        for (var i = 0; i <= 30; i++) { //验证码上显示小点
+            ctx.strokeStyle = "rgb("+rn(0,255)+","+rn(0,255)+","+rn(0,255)+")";
+            ctx.beginPath();
+            var x = Math.random() * 320;
+            var y = Math.random() * 160;
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + 2, y + 2);
+            ctx.stroke();
+        }
+
+        btn.onclick = function(){
+            if(str.toLocaleLowerCase() == inp.value.toLocaleLowerCase()){
+                alert("验证码正确");
+                rnaF();
+            }else{alert("验证码不正确");}
+        }
+    }
+    function xianFn(){
+        ctx.beginPath();
+        ctx.moveTo(rn(0,300),rn(0,200));
+        ctx.lineTo(rn(0,300),rn(0,200));
+        ctx.lineWidth=5;
+        ctx.strokeStyle = "rgb("+rn(0,255)+","+rn(0,255)+","+rn(0,255)+")";
+        ctx.stroke();
+    }
+    function rn(min,max){
+        return  Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    rnaF()
+</script>
+</body>
+</html>
